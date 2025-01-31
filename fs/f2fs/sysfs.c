@@ -1605,7 +1605,7 @@ int __init f2fs_init_sysfs(void)
 	ret = kobject_init_and_add(&f2fs_feat, &f2fs_feat_ktype,
 				   NULL, "features");
 	if (ret)
-		goto put_kobject;
+		goto unregister_out;
 
 	f2fs_proc_root = proc_mkdir("fs/f2fs", NULL);
 	if (!f2fs_proc_root) {
@@ -1616,6 +1616,7 @@ int __init f2fs_init_sysfs(void)
 	return 0;
 put_kobject:
 	kobject_put(&f2fs_feat);
+unregister_out:
 	kset_unregister(&f2fs_kset);
 	return ret;
 }
